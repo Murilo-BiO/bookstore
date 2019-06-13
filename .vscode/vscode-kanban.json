@@ -1,0 +1,128 @@
+{
+  "done": [
+    {
+      "assignedTo": {
+        "name": "Pereti"
+      },
+      "category": "back",
+      "creation_time": "2019-05-25T09:47:10.997Z",
+      "description": {
+        "content": "Create migrations to set the promotions table up.\nit will store the promotions that we're going to make.",
+        "mime": "text/markdown"
+      },
+      "details": {
+        "content": "Create migrations to set the promotions table up.\nit will store the promotions that we're going to make.",
+        "mime": "text/markdown"
+      },
+      "id": "4",
+      "references": [],
+      "title": "Create Migration for Promotion"
+    },
+    {
+      "assignedTo": {
+        "name": "Pereti"
+      },
+      "category": "back",
+      "creation_time": "2019-05-24T13:24:31.026Z",
+      "description": {
+        "content": "Initial Step to build the backend.\nMake all tables of resources/entities",
+        "mime": "text/markdown"
+      },
+      "id": "1",
+      "prio": 0,
+      "references": [],
+      "title": "Create Migrations (tables)"
+    },
+    {
+      "assignedTo": {
+        "name": "Pereti"
+      },
+      "category": "back",
+      "creation_time": "2019-05-24T13:27:48.666Z",
+      "description": {
+        "content": "Create all Models reflecting the entities and their tables.",
+        "mime": "text/markdown"
+      },
+      "details": {
+        "content": "* [x] Address\n* [x] Author\n* [x] Book\n* [x] Cart\n* [x] Category\n* [x] Dislike\n* [x] Genre\n* [x] Image\n* [x] Like\n* [x] Permission\n* [x] Profile\n* [x] Promotion\n* [x] Publisher\n* [x] Purchase\n* [x] Role\n* [x] User",
+        "mime": "text/markdown"
+      },
+      "id": "2",
+      "prio": 0,
+      "references": [
+        "1"
+      ],
+      "title": "Create Models"
+    },
+    {
+      "assignedTo": {
+        "name": "Pereti"
+      },
+      "category": "back",
+      "creation_time": "2019-05-24T14:47:04.478Z",
+      "details": {
+        "content": "* [x] User\n* [x] Category\n* [x] Publisher\n* [x] Author\n* [x] Book\n* [x] Cart\n* [x] Address\n* [x] Purchase\n* [x] Image\n* [x] Genre\n* [x] Like\n* [x] Dislike\n* [x] Profile\n* [x] Role*\n* [x] Permission*\n\n\nPivot Tables for Many-to-Many relations\n* [x] Author Book Pivot\n* [x] Book Promotion Pivot\n* [x] Book Cart Pivot\n* [x] Role User Pivot\n* [x] Permission User Pivot\n* [x] Permission Role Pivot\n* [x] Book Category Pivot\n* [x] Book Genre Pivot\n* [x] Author Genre Pivot\n*Optional",
+        "mime": "text/markdown"
+      },
+      "id": "3",
+      "prio": 0,
+      "references": [],
+      "title": "Design Tables"
+    },
+    {
+      "assignedTo": {
+        "name": "Pereti"
+      },
+      "category": "docs",
+      "creation_time": "2019-05-25T18:31:00.150Z",
+      "description": {
+        "content": "Make a diagram with all tables that represents the Entities and in the future will be the used to make the Models (Entities Classes)",
+        "mime": "text/markdown"
+      },
+      "details": {
+        "content": "Made with [dbdiagram.io](http://dbdiagram.io)\n\nER Diagram [Link](https://dbdiagram.io/d/5ce9b1801f6a891a6a657476)\n",
+        "mime": "text/markdown"
+      },
+      "id": "6",
+      "references": [],
+      "title": "Make the ER Diagram of all Entities"
+    }
+  ],
+  "in-progress": [
+    {
+      "assignedTo": {
+        "name": "Pereti"
+      },
+      "category": "back",
+      "creation_time": "2019-05-26T02:43:25.342Z",
+      "description": {
+        "content": "Create all the controllers that will handle the business logic",
+        "mime": "text/markdown"
+      },
+      "details": {
+        "content": "* [x] Author\n* [x] Book\n* [ ] Cart\n* [ ] Category\n* [ ] Interaction (Like Dislike)\n* [ ] Book\n* [ ] Profile\n* [ ] Auth\n* [ ] Permission\n* [ ] Role\n* [ ] Promotion\n* [ ] Publisher\n* [ ] Purchase\n* [ ] Users (System Users)",
+        "mime": "text/markdown"
+      },
+      "id": "7",
+      "references": [],
+      "title": "Create Controllers"
+    }
+  ],
+  "testing": [],
+  "todo": [
+    {
+      "assignedTo": {
+        "name": "Pereti"
+      },
+      "category": "back",
+      "creation_time": "2019-05-25T11:38:24.772Z",
+      "description": {
+        "content": "https://github.com/radmen/adonis-lucid-soft-deletes/blob/master/instructions.md",
+        "mime": "text/markdown"
+      },
+      "id": "5",
+      "references": [],
+      "title": "Install Service Provider for Soft Deletes"
+    }
+  ]
+}
