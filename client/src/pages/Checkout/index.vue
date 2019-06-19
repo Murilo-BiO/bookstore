@@ -6,13 +6,13 @@
 				<div class="uk-margin">
 					<label for="address" class="uk-form-label">Endereço</label>
 					<div class="uk-form-controls">
-						<input type="text" id="address" class="uk-input">
+						<input type="text" id="address" class="uk-input" v-model="form.address">
 					</div>
 				</div>
 				<div class="uk-margin">
 					<label for="address_2" class="uk-form-label">Complemento</label>
 					<div class="uk-form-controls">
-						<input type="text" class="uk-input" id="address_2">
+						<input type="text" class="uk-input" id="address_2" v-model="form.address_2">
 					</div>
 				</div>
 				<div class="uk-margin">
@@ -20,13 +20,13 @@
 						<div class="uk-width-1-2">
 							<label for="neighborhood" class="uk-form-label">Bairro</label>
 							<div class="uk-form-controls">
-								<input type="text" class="uk-input" id="neighborhood">
+								<input type="text" class="uk-input" id="neighborhood" v-model="form.neighborhood">
 							</div>
 						</div>
 						<div class="uk-width-1-2">
 							<label for="city" class="uk-form-label">Cidade</label>
 							<div class="uk-form-controls">
-								<input type="text" id="city" class="uk-input">
+								<input type="text" id="city" class="uk-input" v-model="form.city">
 							</div>
 						</div>
 					</div>
@@ -36,7 +36,7 @@
 						<div class="uk-width-small">
 							<label for="state" class="uk-form-label">Estado</label>
 							<div class="uk-form-controls">
-								<select id="state" class="uk-select">
+								<select id="state" class="uk-select" v-model="form.state">
 									<option value="AC">AC</option>
 									<option value="AL">AL</option>
 									<option value="AP">AP</option>
@@ -70,7 +70,7 @@
 						<div class="uk-width-expand">
 							<label for="cep" class="uk-form-label">CEP</label>
 							<div class="uk-form-controls">
-								<input type="text" class="uk-input" id="cep">
+								<input type="text" class="uk-input" id="cep" v-model="form.cep">
 							</div>
 						</div>
 					</div>
@@ -79,19 +79,20 @@
 		</div>
 		<div class="uk-width-1-2">
 			<h1>Método de Pagamento</h1>
+			<h2>Valor: </h2>
 			<form class="uk-form-stacked">
 				<div class="uk-margin">
 					<label class="uk-form-label">Pagar com:</label>
 					<div class="uk-form-controls">
-						<label><input type="radio" name="payment" class="uk-radio"> Boleto Bancário</label>
+						<label><input type="radio" name="payment" class="uk-radio" v-model="form.paymentType" value="Boleto"> Boleto Bancário</label>
 						<br>
-						<label><input type="radio" name="payment" class="uk-radio"> Cartão de Crédito</label>
+						<label><input type="radio" name="payment" class="uk-radio" v-model="form.paymentType" value="Credito"> Cartão de Crédito</label>
 						<br>
-						<label><input type="radio" name="payment" class="uk-radio"> Débito Online</label>
+						<label><input type="radio" name="payment" class="uk-radio" v-model="form.paymentType" value="Debito"> Débito Online</label>
 					</div>
 				</div>
 				<div class="uk-margin">
-					<button class="uk-button uk-button-primary" type="button">Finalizar Compra</button>
+					<a @click="purchase" class="uk-button uk-button-primary" type="button">Finalizar Compra</a>
 				</div>
 			</form>
 		</div>
@@ -99,8 +100,51 @@
 </template>
 
 <script>
+import { Form } from '../../common';
 export default {
+	async created () {
+		for (const key in this.$cart.items) {
+			const { [key]: amount } = this.$cart.items
+			const { data: book } = await this.$http.get(`/api/book/${key}`)
 
+			this.total += book.price * amount
+			this.books.push(book)
+		}
+	},
+
+	data () {
+		return {
+			total: 0,
+			books: [],
+			form: new Form({
+				address: '',
+				address_2: '',
+				neighborhood: '',
+				city: '',
+				state: '',
+				cep: '',
+				paymentType: ''
+			})
+		}
+	},
+
+	methods: {
+		async purchase () {
+
+			const books = this.$cart.items
+
+			const payload = {
+				books,
+				...this.form.data()
+			}
+
+			await this.$http.post('/api/purchase', payload)
+
+			this.$cart.flush()
+			window.open(this.$router.resolve('/GateWay').href, '_blank')
+			this.$router.push('/')
+		}
+	}
 }
 </script>
 

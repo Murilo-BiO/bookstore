@@ -14,5 +14,6 @@ Route.add('/', '').children(r => {
 	r.add('signup', 'Auth/Register')
 	r.add('signin', 'Auth/Login')
 })
+Route.add('/GateWay', 'GateWay')
 
 export const routes = Route.build()

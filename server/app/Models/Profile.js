@@ -4,13 +4,17 @@
 const Model = use('Model')
 
 class Profile extends Model {
-	user () {
-		return this.belongsTo('App/Models/User')
-	}
+  static get visible () {
+    return ['cpf', 'addresses', 'firstname', 'lastname', 'phone']
+  }
 
-	addresses () {
-		return this.hasMany('App/Models/Address')
-	}
+  user () {
+    return this.belongsTo('App/Models/User')
+  }
+
+  addresses () {
+    return this.hasMany('App/Models/Address')
+  }
 
 }
 

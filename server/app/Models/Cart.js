@@ -13,7 +13,7 @@ class Cart extends Model {
 	}
 
 	books () {
-		return this.belongsToMany('App/Models/Books')
+		return this.belongsToMany('App/Models/Book').withPivot(['quantity'])
 	}
 }
 

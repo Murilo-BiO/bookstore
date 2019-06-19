@@ -13,18 +13,15 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
+						<tr v-for="book in books" :key="book.id">
 							<td>
-								<img src="http://placehold.it/500x700" alt="" class="uk-preserve-width" width="50">
+								<img :src="book.images[0].url" :alt="book.title" class="uk-preserve-width" width="50">
 							</td>
-							<td class="uk-text-truncate">Nome do Livro</td>
-							<td>R$ 39,90</td>
-							<td>1</td>
+							<td class="uk-text-truncate">{{ book.title }}</td>
+							<td>R$ {{ book.price }}</td>
+							<td>{{ book.amount }}</td>
 							<td>
 								<a class="uk-icon-link uk-text-danger" uk-icon="trash"></a>
-								<!-- <a class="uk-button uk-button-danger">
-									<span uk-icon="trash"></span>
-								</a> -->
 							</td>
 						</tr>
 					</tbody>
@@ -36,9 +33,9 @@
 				<h1 class="uk-heading-divider">Resumo</h1>
 				<div uk-grid class="uk-grid-small">
 					<div class="uk-width-expand" uk-leader>Valor Total</div>
-					<div>R$ 39,90</div>
+					<div>R$ {{ price }}</div>
 				</div>
-				<div uk-grid class="uk-grid-small">
+				<!--<div uk-grid class="uk-grid-small">
 					<div class="uk-width-expand" uk-leader>Desconto</div>
 					<div>R$ 0,00</div>
 				</div>
@@ -46,8 +43,10 @@
 					<div class="uk-width-expand" uk-leader>Valor Final</div>
 					<div>R$ 39,90</div>
 				</div>
+				-->
 				<div class="uk-margin">
-					<button class="uk-button uk-width-1-1 uk-button-primary uk-button-large">Finalizar Compra</button>
+					<router-link class="uk-button uk-width-1-1 uk-button-primary uk-button-large" tag="a" to="/checkout" v-if="books.length > 1">Finalizar Compra</router-link>
+					<button class="uk-button uk-width-1-1 uk-button-primary uk-button-large" disabled="true" v-else>Finalizar Compra</button>
 				</div>
 			</div>
 		</div>
@@ -56,7 +55,26 @@
 
 <script>
 export default {
+	data () {
+		return {
+			books: [],
+			price: 0.0
+		}
+	},
 
+	async created () {
+		const books = []
+		for (const item in this.$cart.items) {
+			const { data: book } = await this.$http.get(`/api/book/${item}`)
+
+			book.amount = this.$cart.items[item]
+			books.push(book)
+			this.price += book.price * book.amount
+		}
+
+		this.books = books
+		return books
+	}
 }
 </script>
 

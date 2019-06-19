@@ -5,15 +5,21 @@ const Book = use('App/Models/Book')
 
 class BookController {
 	async index ({ request, response }) {
-		const { p: page, l: limit } = request.get()
+		//const { p: page, l: limit } = request.get()
 
-		const books = await Book.query().paginate(page, limit)
-
+		//const books = await Book.query().paginate(page, limit)
+		const books = await Book.query()
+			.with('images')
+			.fetch()
+		
 		return response.send(books)
 	}
 
 	async show ({ params, response }) {
-		const book = await Book.find(params.id)
+		const book = await Book.query()
+			.with('images')
+			.where('id', params.id)
+			.first()
 
 		if (!book)
 			return response.status(404).send('not found')

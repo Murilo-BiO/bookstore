@@ -10,8 +10,8 @@ class ProfileSchema extends Schema {
 			table.integer('user_id').unsigned()
 			table.string('firstname')
 			table.string('lastname')
-			table.string('phone')
-			table.string('cpf')
+			table.string('phone').nullable()
+			table.string('cpf').nullable()
       table.timestamps()
     })
   }

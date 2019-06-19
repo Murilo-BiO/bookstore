@@ -1,7 +1,7 @@
 <template>
 	<div class="uk-grid-small uk-child-width-1-4" uk-grid>
-		<div v-for="n in [1, 2, 3, 4, 5]" :key="n">
-			<product-item :id="n"></product-item>
+		<div v-for="book in books" :key="book.id">
+			<product-item :book="book"></product-item>
 		</div>
 	</div>
 </template>
@@ -10,6 +10,8 @@
 import ProductItem from './ProductItem'
 
 export default {
+	props: ['books'],
+
 	components: { ProductItem }
 }
 </script>

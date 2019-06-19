@@ -7,7 +7,11 @@ const Model = use('Model')
 const Hash = use('Hash')
 
 class User extends Model {
-  static boot () {
+	static get visible () {
+		return ['email', 'profile', 'id']
+	}
+
+	static boot () {
     super.boot()
 
     /**
